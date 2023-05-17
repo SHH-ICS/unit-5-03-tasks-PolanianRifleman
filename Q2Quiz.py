@@ -1,35 +1,21 @@
 import json
 
-with open("questions.txt", "r") as file:
-    q = file.readlines()
+with open("question.json", "r") as f:
+    d = json.loads(f.read())
 
-score = 0
+while True:
 
-for i in range(0, len(q), 7):
-    question_data = {
-        "question": q[i].strip(),
-        "answers": {
-            "A": q[i+1].strip(),
-            "B": q[i+2].strip(),
-            "C": q[i+3].strip(),
-            "D": q[i+4].strip()
-        },
-        "correct_answer": q[i+5].strip()
-    }
+    print("")
+    print(d["question"])
+    print("\nAnswer 1:",(d["answers"][0]))
+    print("Answer 2:",(d["answers"][1]))
+    print("Answer 3:",(d["answers"][2]))
+    print("Answer 4:",(d["answers"][3]))
 
-    print("\nQuestion:", question_data["question"])
-    print("A:", question_data["answers"]["A"])
-    print("B:", question_data["answers"]["B"])
-    print("C:", question_data["answers"]["C"])
-    print("D:", question_data["answers"]["D"])
+    b = int(input("\nWhat is the correct answer \n(example: if the correct answer is (Answer 3) type 3)\nType your answer here: "))
 
-    user_answer = input("Enter your answer (A/B/C/D): ")
-
-    if user_answer.upper() == question_data["correct_answer"]:
-        print("Correct")
-        score += 1
-    else:
-        print("Incorrect")
-
-print("\nQuiz completed!")
-print("Your score:", score, "out of", len(q) // 7)
+    if b == (d["correct_answer"]):
+        print("\nWell done, your answer was correct! \n\n(Run the python file again if you would like to do the quiz again)\n")
+        break
+    elif b != (d["correct_answer"]):
+        print("\nIncorrect! Please try again!")
